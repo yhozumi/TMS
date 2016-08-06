@@ -8,12 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		BA8B262F1D554E010021BA0A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8B262E1D554E010021BA0A /* AppDelegate.swift */; };
-		BA8B26311D554E010021BA0A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8B26301D554E010021BA0A /* ViewController.swift */; };
 		BA8B26341D554E010021BA0A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BA8B26321D554E010021BA0A /* Main.storyboard */; };
 		BA8B26361D554E010021BA0A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BA8B26351D554E010021BA0A /* Assets.xcassets */; };
 		BA8B26391D554E010021BA0A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BA8B26371D554E010021BA0A /* LaunchScreen.storyboard */; };
 		BA8B26441D554E020021BA0A /* TMSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8B26431D554E020021BA0A /* TMSTests.swift */; };
 		BA8B264F1D554E020021BA0A /* TMSUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8B264E1D554E020021BA0A /* TMSUITests.swift */; };
+		BA8B26631D5550790021BA0A /* SearchCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8B26621D5550790021BA0A /* SearchCollectionViewController.swift */; };
+		BA8B26671D5567D80021BA0A /* TwitterAuthentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8B26661D5567D80021BA0A /* TwitterAuthentication.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,7 +37,6 @@
 /* Begin PBXFileReference section */
 		BA8B262B1D554E010021BA0A /* TMS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TMS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA8B262E1D554E010021BA0A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		BA8B26301D554E010021BA0A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		BA8B26331D554E010021BA0A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		BA8B26351D554E010021BA0A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BA8B26381D554E010021BA0A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -47,6 +47,8 @@
 		BA8B264A1D554E020021BA0A /* TMSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TMSUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA8B264E1D554E020021BA0A /* TMSUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TMSUITests.swift; sourceTree = "<group>"; };
 		BA8B26501D554E020021BA0A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BA8B26621D5550790021BA0A /* SearchCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchCollectionViewController.swift; sourceTree = "<group>"; };
+		BA8B26661D5567D80021BA0A /* TwitterAuthentication.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwitterAuthentication.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,12 +99,12 @@
 		BA8B262D1D554E010021BA0A /* TMS */ = {
 			isa = PBXGroup;
 			children = (
-				BA8B262E1D554E010021BA0A /* AppDelegate.swift */,
-				BA8B26301D554E010021BA0A /* ViewController.swift */,
-				BA8B26321D554E010021BA0A /* Main.storyboard */,
-				BA8B26351D554E010021BA0A /* Assets.xcassets */,
-				BA8B26371D554E010021BA0A /* LaunchScreen.storyboard */,
-				BA8B263A1D554E010021BA0A /* Info.plist */,
+				BA8B26611D55505A0021BA0A /* Storyboard */,
+				BA8B265F1D55503D0021BA0A /* Protocols */,
+				BA8B265E1D5550390021BA0A /* Model */,
+				BA8B265D1D5550350021BA0A /* View */,
+				BA8B265C1D55502D0021BA0A /* Controller */,
+				BA8B26601D5550440021BA0A /* Support */,
 			);
 			path = TMS;
 			sourceTree = "<group>";
@@ -123,6 +125,55 @@
 				BA8B26501D554E020021BA0A /* Info.plist */,
 			);
 			path = TMSUITests;
+			sourceTree = "<group>";
+		};
+		BA8B265C1D55502D0021BA0A /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				BA8B26621D5550790021BA0A /* SearchCollectionViewController.swift */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		BA8B265D1D5550350021BA0A /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		BA8B265E1D5550390021BA0A /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				BA8B26661D5567D80021BA0A /* TwitterAuthentication.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		BA8B265F1D55503D0021BA0A /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Protocols;
+			sourceTree = "<group>";
+		};
+		BA8B26601D5550440021BA0A /* Support */ = {
+			isa = PBXGroup;
+			children = (
+				BA8B262E1D554E010021BA0A /* AppDelegate.swift */,
+				BA8B26351D554E010021BA0A /* Assets.xcassets */,
+				BA8B263A1D554E010021BA0A /* Info.plist */,
+			);
+			name = Support;
+			sourceTree = "<group>";
+		};
+		BA8B26611D55505A0021BA0A /* Storyboard */ = {
+			isa = PBXGroup;
+			children = (
+				BA8B26321D554E010021BA0A /* Main.storyboard */,
+				BA8B26371D554E010021BA0A /* LaunchScreen.storyboard */,
+			);
+			name = Storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -265,7 +316,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BA8B26311D554E010021BA0A /* ViewController.swift in Sources */,
+				BA8B26631D5550790021BA0A /* SearchCollectionViewController.swift in Sources */,
+				BA8B26671D5567D80021BA0A /* TwitterAuthentication.swift in Sources */,
 				BA8B262F1D554E010021BA0A /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -415,6 +467,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = TMS/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.yhozumi.TMS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -427,6 +480,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = TMS/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.yhozumi.TMS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
