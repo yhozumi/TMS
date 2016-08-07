@@ -40,8 +40,8 @@ class SearchCollectionViewController: UICollectionViewController {
     
     twitterAuthentication.generateAccessToken(completion: { token in
       self.webService = WebService(searchText: text, authToken: token)
-      self.webService?.loadSearch { data in
-        let twitterArray = data["statuses"] as! NSArray
+      self.webService?.loadSearch { json in
+        let twitterArray = json["statuses"] as! NSArray
         twitterArray.map { self.tweets.append(Tweet(jsonObject: $0 as! [String: AnyObject])) }
       }
     })

@@ -20,9 +20,15 @@ class DetailTweetViewController: UIViewController {
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     
-    detailView.nameLabel.text = tweet?.user.name
-    detailView.screenNameLabel.text = tweet?.user.screenName
-    detailView.contentTextLabel.text = tweet?.text
+    configure(view: detailView)
+  }
+  
+  
+  private func configure(view: DetailTweetView) {
+    guard let tweet = tweet else { return }
+    view.nameLabel.text = tweet.user.name
+    view.screenNameLabel.text = tweet.user.name
+    view.contentTextLabel.text = tweet.text
   }
   
   @IBAction func closeButtonPressed(_ sender: AnyObject) {
