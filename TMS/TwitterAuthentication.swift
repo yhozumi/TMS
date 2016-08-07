@@ -9,24 +9,14 @@
 
 import Foundation
 
-final class TwitterAuthentication {
+struct TwitterAuthentication {
   
-  static let consumerKey = "P0egUUMUMdKf7QkwQ7tvVfdcG"
-  static let consumerSecretKey = "egSbIuYr0ardQJSlb23Y9TptRD7cUBvZ5QDj3BnF7v0dbNQpeI"
+  static let consumerKey = "8ofZhLxohw0Y8HIgIMABJSRgB"
+  static let consumerSecretKey = "uyWuPwTc2VSY3oLeMlzp0KI0rxYHM1IJnmksu9PhClESb0ea0Q"
   static let twitterAuthUrlString = "https://api.twitter.com/oauth2/token"
-  
-  private(set) var authToken: String? {
-    didSet {
-      print(authToken!)
-    }
-  }
-  
-  init() {
-    generateAccessToken()
-  }
-  
+
   //It will POST to Twitter API and recieve authentication token asynchronously
-  private func generateAccessToken() {
+  func generateAccessToken(completion: (String) -> ()) {
     let authUrl = URL(string: TwitterAuthentication.twitterAuthUrlString)!
     let urlRequest = configureUrlRequest(with: authUrl)
     
@@ -34,9 +24,11 @@ final class TwitterAuthentication {
     let dataTask = session.dataTask(with: urlRequest) { data, response, error in
       do {
         let json = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as! [String: AnyObject]
-        self.authToken = json["access_token"] as! String
+        if let accessToken = json["access_token"] as? String {
+          completion(accessToken)
+        }
       } catch {
-        print(error)
+        print("error parsing JSON data")
       }
     }
     dataTask.resume()
@@ -57,5 +49,4 @@ final class TwitterAuthentication {
     let tokenData = bearerToken.data(using: String.Encoding.utf8)!
     return tokenData.base64EncodedString(options: .endLineWithCarriageReturn)
   }
-  
 }
