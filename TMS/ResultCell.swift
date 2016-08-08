@@ -10,5 +10,9 @@ import UIKit
 
 class ResultCell: UICollectionViewCell {
   
-  @IBOutlet weak var label: UILabel!
+  @IBOutlet weak var resultImageView: UIImageView!
+  
+  override func prepareForReuse() {
+    resultImageView.image = UIImage()
+  }
 }

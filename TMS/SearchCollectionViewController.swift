@@ -12,42 +12,42 @@ private let reuseIdentifier = "Cell"
 
 class SearchCollectionViewController: UICollectionViewController {
   
+  private var twitterAuthentication = TwitterAuthentication()
   private var webService: WebService?
-  private var tweets = [Tweet]() {
+  private var tweets = [Tweet]() { //Not optimized. If this data had more then 500 items it will load slowly.
     didSet {
       DispatchQueue.main.async {
         self.collectionView?.reloadData()
       }
     }
   }
-  private var twitterAuthentication = TwitterAuthentication()
-  
-  override func viewDidLoad() {
-    super.viewDidLoad()
-  }
   
   override func prepare(for segue: UIStoryboardSegue, sender: AnyObject?) {
     if segue.identifier == "showDetail" {
-      if let detailVC = segue.destinationViewController as? DetailTweetViewController {
+      if let detailVC = segue.destination as? DetailTweetViewController {
         let indexPath = collectionView?.indexPath(for: sender as! ResultCell)
         detailVC.tweet = tweets[indexPath!.row]
       }
     }
   }
   
+  //This method will empty out the search results and perform a new search.
+  //VERY MESSY NEEDS FIXED!!!
   private func search(with text: String) {
     tweets = [Tweet]()
     
     twitterAuthentication.generateAccessToken(completion: { token in
       self.webService = WebService(searchText: text, authToken: token)
-      self.webService?.loadSearch { json in
+      //This closure had memory leak which was solved by using "Profile in Instruments" added [weak self]
+      self.webService?.loadSearch { [weak self] json in
         let twitterArray = json["statuses"] as! NSArray
-        twitterArray.map { self.tweets.append(Tweet(jsonObject: $0 as! [String: AnyObject])) }
+        twitterArray.map { self?.webService?.loadStatus(with: $0["id_str"] as! String) { statusJson in
+          self?.tweets.append(Tweet(jsonObject: statusJson as! [String: AnyObject]))
+        }}
       }
     })
   }
 }
-
 
 //Data Source
 extension SearchCollectionViewController {
@@ -57,7 +57,10 @@ extension SearchCollectionViewController {
   
   override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! ResultCell
-    cell.label.text = tweets[indexPath.row].user.name
+    let tweet = tweets[indexPath.row]
+    if let url = tweet.tweetImageUrl {
+      setImage(withURL: url, imageView: cell.resultImageView)
+    }
     return cell
   }
   
@@ -69,8 +72,10 @@ extension SearchCollectionViewController {
 extension SearchCollectionViewController: UITextFieldDelegate {
   func textFieldShouldReturn(_ textField: UITextField) -> Bool {
     guard let text = textField.text else { return false }
-    search(with: text)
+    self.search(with: text)
     textField.resignFirstResponder()
     return true
   }
 }
+
+extension SearchCollectionViewController: ImageLoadable { }

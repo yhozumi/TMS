@@ -12,7 +12,6 @@ import Foundation
 struct TwitterUser {
   let screenName: String
   let name: String
-  let profileUrl: URL
   let profileImageUrl: URL
 }
 
@@ -21,7 +20,6 @@ extension TwitterUser {
   init(userData: [String: AnyObject]) {
     self.screenName = userData["screen_name"] as! String
     self.name = userData["name"] as! String
-    self.profileImageUrl = URL(string: userData["profile_image_url_https"] as! String)!
-    self.profileUrl = URL(string: "")!
+    self.profileImageUrl = URL(string: userData["profile_image_url"] as! String)!
   }
 }

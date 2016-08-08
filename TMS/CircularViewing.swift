@@ -15,9 +15,9 @@ protocol CircularViewing {
 
 //Protocol Extension allows a default implementation of the method.
 extension CircularViewing {
+  ///Arrays of views that will be evaluated and will be made a circlar view
   func configureCircular(view: [UIView]) {
-    //Checks if the height and the width is the same. Cannot round the view to a circle unless the height and width is the same
-    let _ = view.map {
+      let _ = view.map {
       if $0.frame.width == $0.frame.height {
         $0.layer.cornerRadius = $0.frame.width / 2
         $0.clipsToBounds = true
