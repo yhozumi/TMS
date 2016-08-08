@@ -5,11 +5,12 @@
 //  Created by Suke Hozumi on 8/6/16.
 //  Copyright © 2016 yhozumi. All rights reserved.
 //
+//  WebService class communicates with the Twitter API v1.1 to retrieve tweet datas.
 
 import Foundation
 
-//WebService class communicates with the Twitter API v1.1 to retrieve tweet datas.
-final class WebService {
+
+struct WebService {
   private var authenticationToken: String? 
   private var searchUrl: String?
   

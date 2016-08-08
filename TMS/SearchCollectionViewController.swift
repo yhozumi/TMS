@@ -7,19 +7,31 @@
 //
 
 import UIKit
+import AVFoundation
 
 private let reuseIdentifier = "Cell"
 
-class SearchCollectionViewController: UICollectionViewController {
+final class SearchCollectionViewController: UICollectionViewController {
   
   private var twitterAuthentication = TwitterAuthentication()
   private var webService: WebService?
   private var tweets = [Tweet]() { //Not optimized. If this data had more then 500 items it will load slowly.
     didSet {
       DispatchQueue.main.async {
-        self.collectionView?.reloadData()
+//        self.collectionView?.reloadData()
       }
     }
+  }
+  
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    
+    //Disables prefetching that was introduced in iOS 10
+    //Needs to implement Custom CollectionView Layout however prefetching causes weird issues with Custom collectionview layout.
+    if #available(iOS 10, *) {
+      collectionView?.isPrefetchingEnabled = false
+    }
+    self.search(with: "otters")
   }
   
   override func prepare(for segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -30,6 +42,7 @@ class SearchCollectionViewController: UICollectionViewController {
       }
     }
   }
+  
   
   //This method will empty out the search results and perform a new search.
   //VERY MESSY NEEDS FIXED!!!
@@ -43,6 +56,9 @@ class SearchCollectionViewController: UICollectionViewController {
         let twitterArray = json["statuses"] as! NSArray
         twitterArray.map { self?.webService?.loadStatus(with: $0["id_str"] as! String) { statusJson in
           self?.tweets.append(Tweet(jsonObject: statusJson as! [String: AnyObject]))
+          DispatchQueue.main.async {
+            self?.collectionView?.reloadData()
+          }
         }}
       }
     })

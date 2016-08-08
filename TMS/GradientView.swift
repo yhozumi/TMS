@@ -8,7 +8,7 @@
 
 import UIKit
 
-class GradientView: UIView {
+final class GradientView: UIView {
   //gradient layer is expensive so lazily initialized. 
   lazy private var gradientLayer: CAGradientLayer = {
     let layer = CAGradientLayer()

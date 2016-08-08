@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ResultCell: UICollectionViewCell {
+final class ResultCell: UICollectionViewCell {
   
   @IBOutlet weak var resultImageView: UIImageView!
   

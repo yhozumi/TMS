@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DetailTweetView: UIView {
+final class DetailTweetView: UIView {
   
   @IBOutlet weak var backgroundImageView: UIImageView!
   @IBOutlet weak var profileImageView: UIImageView!

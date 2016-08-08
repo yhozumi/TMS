@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DetailTweetViewController: UIViewController {
+final class DetailTweetViewController: UIViewController {
   
   @IBOutlet var detailView: DetailTweetView!
   var tweet: Tweet?
@@ -46,10 +46,11 @@ class DetailTweetViewController: UIViewController {
   }
 }
 
-extension DetailTweetViewController: ImageLoadable { }
-
 extension DetailTweetViewController: SafariViewable {
   var url: URL {
     return (tweet?.expandedUrl)!
   }
 }
+
+extension DetailTweetViewController: ImageLoadable { }
+
